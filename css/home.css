@@ -1,3 +1,8 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    outline: none; /* 双重保险 */
+}
+
 /* 个人资料区域 */
 .profile-section {
     display: flex;
@@ -135,7 +140,7 @@
 .dream-text {
     font-size: 10px;
     color: #666;
-    margin: 0 10px; /* 给文字和头像之间加点亲密的距离 */
+    margin: 0 5px; /* 给文字和头像之间加点亲密的距离 */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;}
@@ -184,7 +189,8 @@
 .bottom-dock {
     display: flex;
     justify-content: space-between; /* 自动平均分布 */
-    width: calc(100% - 20px);      /* 和上面的宽度对齐 */
+    width: calc(100% - 30px);      /* 和上面的宽度对齐 */
     margin: 60px auto 20px auto;   /* 居中，底部多留点空隙 */
     padding: 0 10px;
 }
+
