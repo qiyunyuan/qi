@@ -1,7 +1,7 @@
 {
-  "name": "祁韵喵喵机",
-  "short_name": "祁韵喵喵机",
-  "start_url": "/",
+  "name": "祁韵",
+  "short_name": "祁韵",
+  "start_url": "/qi/",
   "display": "standalone",
   "background_color": "#fcebf3",
   "theme_color": "#fcebf3",
