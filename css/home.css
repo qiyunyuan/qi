@@ -1,0 +1,67 @@
+/* 个人资料区域 */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 130px;
+    width: 100%;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    background-color: #ddd; /* 占位符颜色 */
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 15px;
+}
+
+.nickname {
+    font-size: 18px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.bio {
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+}
+
+/* 时间卡片样式 */
+.time-card {
+    background-color: #fff;
+    color: #000000;
+    border-radius: 20px;
+    padding: 30px 0;
+    width: calc(100% - 40px);
+    margin: 40px 20px 20px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    user-select: none; /* 不许复制，只能看 */
+}
+
+.time-label {
+    font-size: 12px;
+    color: #888;
+    letter-spacing: 1px;
+}
+
+.time-display {
+    font-size: 28px;
+    font-weight: bold;
+    font-family: monospace; /* 等宽字体，数字跳动不会乱晃 */
+    color: #000000;
+    line-height: 1.2;
+}
+
+.enter-world-btn:active {
+    transform: scale(0.95);
+}
