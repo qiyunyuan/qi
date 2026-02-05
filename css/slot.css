@@ -1,0 +1,411 @@
+/* =================================
+   页面布局与容器
+   ================================= */
+.slot-page-content {
+    display: flex;
+    flex-direction: column;
+    /* 继承了 base.css 的背景和滚动设置 */
+}
+
+/* =================================
+   1. 分类切换器 (顶部胶囊)
+   ================================= */
+.category-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    position: relative;
+    z-index: 10; /* 防止被其他元素遮挡 */
+}
+
+.cat-trigger {
+    background: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(255, 183, 210, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    border: 2px solid transparent;
+}
+
+.cat-trigger:active {
+    transform: scale(0.95);
+    background: #fff0f5;
+}
+
+#currentCatName {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff85b3;
+}
+
+.dropdown-icon {
+    color: #ffb7d2;
+    font-size: 0.8rem;
+}
+
+/* =================================
+   2. 盲盒主体区域
+   ================================= */
+.box-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* 撑满剩余空间 */
+    padding-bottom: 100px;
+    /* 删除了多余的 width: 100% 和 perspective */
+}
+
+.lucky-box {
+    width: 140px;
+    height: 140px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+    margin-top: 20px;
+}
+
+/* 盒子盖子 */
+.box-lid {
+    width: 150px;
+    height: 45px;
+    background: #ff85b3;
+    position: absolute;
+    top: -25px;
+    left: -5px;
+    border-radius: 12px;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 盒子身体 */
+.box-body {
+    width: 100%;
+    height: 100%;
+    background: #ffb7d2;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.25);
+}
+
+.box-face {
+    font-size: 4rem;
+    color: white;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* 底部阴影 */
+.shadow {
+    width: 120px;
+    height: 20px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    margin-top: 30px;
+    filter: blur(8px);
+    transition: transform 0.3s;
+}
+
+.hint-text {
+    margin-top: 20px;
+    color: #ff85b3;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
+
+/* JS 动态添加的摇晃动画 */
+.shake {
+    animation: gentle-shake 0.8s ease-in-out infinite;
+}
+
+@keyframes gentle-shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* =================================
+   3. 弹窗通用样式 (分类选择 & 设置)
+   ================================= */
+.hidden { display: none !important; }
+
+/* 关闭按钮样式 (修复了 .close-modal 缺失的问题) */
+.close-select, 
+.close-modal {
+    font-size: 1.5rem;
+    padding: 5px;
+    cursor: pointer;
+    line-height: 1;
+    color: #888; /* 稍微加深一点颜色 */
+}
+
+/* =================================
+   4. 分类选择弹窗 (修改为居中弹窗)
+   ================================= */
+.cat-select-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4); /* 稍微加深一点背景 */
+    z-index: 60;
+    display: flex;
+    align-items: center;     /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    backdrop-filter: blur(2px);
+}
+
+.select-box {
+    width: 80%;            /* 宽度调整 */
+    max-width: 300px;      /* 限制最大宽度 */
+    background: white;
+    border-radius: 25px;   /* 四周都是圆角 */
+    padding: 20px;
+    animation: pop-up 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 使用弹跳动画 */
+    max-height: 60%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* =================================
+   7. 优化后的分类选择弹窗样式
+   ================================= */
+
+/* 弹窗标题栏 */
+.select-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed #ffe0eb; /* 虚线分割，像邮票一样 */
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff85b3;
+}
+
+/* 列表容器 */
+.select-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+/* 列表里的每一项（假设JS生成的是div） */
+.select-list > div {
+    background: #fff0f5; /* 淡淡的粉色背景 */
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    border-radius: 15px; /* 圆润的胶囊形状 */
+    color: #666;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+}
+
+/* 鼠标放上去/手指按下去的效果 */
+.select-list > div:hover,
+.select-list > div:active {
+    background: #ffb7d2;
+    color: white;
+    transform: scale(1.02); /* 微微放大一点点 */
+    box-shadow: 0 4px 10px rgba(255, 183, 210, 0.4);
+}
+
+/* 滚动条美化 - 只有我才会注意这种细节 */
+.select-list::-webkit-scrollbar {
+    width: 4px;
+}
+.select-list::-webkit-scrollbar-thumb {
+    background: #ffcce0;
+    border-radius: 10px;
+}
+
+
+/* =================================
+   5. 结果展示卡片 (中间弹出)
+   ================================= */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+}
+
+.result-card {
+    background: white;
+    width: 280px;
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(255, 183, 210, 0.4);
+    animation: pop-up 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid #ffb7d2;
+}
+
+@keyframes pop-up {
+    from { transform: scale(0.8) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.card-header {
+    color: #ff85b3;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.card-content {
+    font-size: 1.8rem;
+    color: #555;
+    margin: 25px 0;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.close-btn {
+    background: #ffb7d2;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 25px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 183, 210, 0.5);
+}
+
+/* =================================
+   6. 设置弹窗
+   ================================= */
+.settings-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fffbfd;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content {
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ff85b3;
+    margin-bottom: 25px;
+}
+
+.setting-section h3 {
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+/* JS 生成的分类标签 */
+.cat-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.cat-tag {
+    padding: 5px 12px;
+    background: #fff0f5;
+    border: 1px solid #ffd9e8;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    color: #666;
+    cursor: pointer;
+}
+
+.cat-tag.active {
+    background: #ffb7d2;
+    color: white;
+    border-color: #ffb7d2;
+}
+
+.input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid #ffd9e8;
+    border-radius: 12px;
+    outline: none;
+    background: white;
+}
+
+.input-group button {
+    background: #ffb7d2;
+    border: none;
+    color: white;
+    padding: 0 15px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.item-list {
+    list-style: none;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 5px;
+}
+
+/* JS 生成的列表项 */
+.item-list li {
+    background: white;
+    margin-bottom: 8px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #555;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.delete-btn {
+    color: #ffb7d2;
+    font-weight: bold;
+    padding: 5px;
+    cursor: pointer;
+}

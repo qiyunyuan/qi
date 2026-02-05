@@ -77,9 +77,9 @@
                 <!-- 底部四个APP图标 -->
         <div class="bottom-dock">
             <!-- 1 -->
-            <div class="app-group">
+            <div class="app-group" id="app-decision">
                 <div class="app-icon"></div>
-                <span class="app-name">APP3</span>
+                <span class="app-name">口袋决策喵</span>
             </div>
             <!-- 2 -->
             <div class="app-group">
@@ -97,11 +97,102 @@
                 <span class="app-name">APP6</span>
             </div>
         </div>
+    </div>
+    
+    <!-- 口袋决策喵 页面 -->
+    <div id="page-decision" class="page">
 
+            <!-- 标题栏 -->
+    <div class="nav-header">
+        <div class="nav-btn" id="backBtn">❮</div>
+        <div class="nav-title">口袋决策喵</div>
+        <div class="nav-btn" id="settingBtn">⚙️</div>
+    </div>
 
+    <!-- 主内容区 -->
+    <div class="page-content slot-page-content">
+        
+<!-- 分类切换区 -->
+ <div class="page-content slot-page-content">
+        <div class="category-selector">
+            <div class="cat-trigger" id="catTrigger">
+                <span id="currentCatName">默认分类</span>
+                <span class="dropdown-icon">▼</span>
+            </div>
+        </div>
+
+        <div class="box-wrapper">
+            <div class="lucky-box" id="luckyBox">
+                <div class="box-lid"></div>
+                <div class="box-body">
+                    <span class="box-face">?</span>
+                </div>
+            </div>
+            <div class="shadow"></div>
+            <p class="hint-text">轻轻摇一摇</p>
+        </div>
+
+        <!-- 弹出的卡片 -->
+        <div class="card-overlay hidden" id="cardOverlay">
+            <div class="result-card">
+                <div class="card-header">✨ 结果是 ✨</div>
+                <div class="card-content" id="resultText">???</div>
+                <button class="close-btn" id="closeCardBtn">好哒</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 选择分类的弹窗 -->
+    <div class="cat-select-modal hidden" id="catSelectModal">
+        <div class="select-box">
+            <div class="select-header">
+                <span>切换心愿盒</span>
+                <span class="close-select" id="closeCatSelect">×</span>
+            </div>
+            <div class="select-list" id="selectList">
+                <!-- JS 生成列表 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置弹窗 -->
+    <div class="settings-modal hidden" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>设置</span>
+                <span class="close-modal" id="closeSettings">×</span>
+            </div>
+            
+            <!-- 分类管理 -->
+            <div class="setting-section">
+                <h3>📂 分类管理</h3>
+                <div class="input-group">
+                    <input type="text" id="newCatInput" placeholder="新建分类">
+                    <button id="addCatBtn">新建</button>
+                </div>
+                <div class="cat-tags" id="catList">
+                    <!-- 分类标签 -->
+                </div>
+            </div>
+
+            <!-- 条目管理 -->
+            <div class="setting-section" style="flex:1; display:flex; flex-direction:column; margin-top:20px;">
+                <h3>📝 <span id="editCatName">默认</span> 的选项</h3>
+                <div class="input-group">
+                    <input type="text" id="newItemInput" placeholder="添加选项...">
+                    <button id="addItemBtn">添加</button>
+                </div>
+                <ul class="item-list" id="itemList">
+                    <!-- 列表 -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 </div>
 
-<script src="js/script.js"></script>
+<script type="module" src="js/script.js"></script>
 </body>
 </html>
