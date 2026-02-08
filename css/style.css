@@ -4,8 +4,11 @@
 /* 主页样式 */
 @import "./home.css";
 
-/* 聊天样式 */
-@import "./chat.css";
-
 /* 口袋决策喵样式 */
 @import "./slot.css";
+
+/* API设置样式 */
+@import "./api.css";
+
+/* 角色设置样式 */
+@import "./Character.css";

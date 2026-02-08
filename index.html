@@ -13,6 +13,9 @@
     <meta name="theme-color" content="#fcebf3">
 
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- 图标库 -->
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -77,14 +80,14 @@
                 <!-- 底部四个APP图标 -->
         <div class="bottom-dock">
             <!-- 1 -->
-            <div class="app-group" id="app-decision">
-                <div class="app-icon"></div>
-                <span class="app-name">口袋决策喵</span>
-            </div>
-            <!-- 2 -->
             <div class="app-group">
                 <div class="app-icon"></div>
-                <span class="app-name">APP4</span>
+                <span class="app-name">APP3</span>
+            </div>
+            <!-- 2 -->
+            <div class="app-group" id="btn-character">
+                <div class="app-icon"></div>
+                <span class="app-name">角色管理</span>
             </div>
             <!-- 3 -->
             <div class="app-group">
@@ -98,98 +101,73 @@
             </div>
         </div>
     </div>
-    
-    <!-- 口袋决策喵 页面 -->
-    <div id="page-decision" class="page">
 
-            <!-- 标题栏 -->
+    <div id="page-character" class="page">
+            <!-- 1. 标题栏 -->
     <div class="nav-header">
-        <div class="nav-btn" id="backBtn">❮</div>
-        <div class="nav-title">口袋决策喵</div>
-        <div class="nav-btn" id="settingBtn">⚙️</div>
+        <div class="nav-btn" id="back-btn">❮</div>
+        <div class="nav-title">角色管理</div>
+        <div class="nav-btn" id="new-btn">＋</div>
     </div>
 
-    <!-- 主内容区 -->
-    <div class="page-content slot-page-content">
-        
-<!-- 分类切换区 -->
- <div class="page-content slot-page-content">
-        <div class="category-selector">
-            <div class="cat-trigger" id="catTrigger">
-                <span id="currentCatName">默认分类</span>
-                <span class="dropdown-icon">▼</span>
-            </div>
+    <!-- 2. 分类标签 -->
+    <div class="tab-header">
+        <div class="tab-item active" data-target="char">角色 (Char)</div>
+        <div class="tab-item" data-target="user">用户 (User)</div>
+    </div>
+
+    <!-- 3. 内容区域 -->
+    <div class="page-content">
+        <!-- 角色列表 -->
+        <div id="char-list" class="info-list active">
+            <!-- 空空如也 -->
         </div>
 
-        <div class="box-wrapper">
-            <div class="lucky-box" id="luckyBox">
-                <div class="box-lid"></div>
-                <div class="box-body">
-                    <span class="box-face">?</span>
-                </div>
-            </div>
-            <div class="shadow"></div>
-            <p class="hint-text">轻轻摇一摇</p>
-        </div>
-
-        <!-- 弹出的卡片 -->
-        <div class="card-overlay hidden" id="cardOverlay">
-            <div class="result-card">
-                <div class="card-header">✨ 结果是 ✨</div>
-                <div class="card-content" id="resultText">???</div>
-                <button class="close-btn" id="closeCardBtn">好哒</button>
-            </div>
+        <!-- 用户列表 -->
+        <div id="user-list" class="info-list">
+            <!-- 空空如也 -->
         </div>
     </div>
 
-    <!-- 选择分类的弹窗 -->
-    <div class="cat-select-modal hidden" id="catSelectModal">
-        <div class="select-box">
-            <div class="select-header">
-                <span>切换心愿盒</span>
-                <span class="close-select" id="closeCatSelect">×</span>
+        <!-- 4. 新建/编辑 覆盖层 (默认隐藏) -->
+    <div id="editor-layer" class="editor-layer">
+        <!-- 编辑页标题栏 -->
+        <div class="nav-header">
+            <div class="nav-btn" id="editor-back">❮</div>
+            <div class="nav-title" id="editor-title">新建角色</div>
+            <div class="nav-btn" id="editor-save">✔</div>
+        </div>
+
+        <!-- 编辑页内容 -->
+        <div class="page-content Character-editor-content">
+            <!-- 头像上传区 -->
+            <div class="avatar-upload-container">
+                <div class="avatar-preview" id="editor-avatar">
+                    <span>＋</span>
+                </div>
+                <input type="file" id="avatar-input" accept="image/*" style="display: none;">
+                <p class="tip-text">点击更换头像</p>
             </div>
-            <div class="select-list" id="selectList">
-                <!-- JS 生成列表 -->
+
+            <!-- 输入表单 -->
+            <div class="Character-form-group">
+                <label>名字</label>
+                <input type="text" id="editor-name" placeholder="取个名字吧" class="pink-input">
+            </div>
+
+            <div class="Character-form-group">
+                <label>ID</label>
+                <input type="text" id="editor-id" placeholder="唯一的ID哦" class="pink-input">
+            </div>
+
+            <div class="Character-form-group">
+                <label>描述</label>
+                <textarea id="editor-desc" placeholder="写点什么介绍一下..." class="pink-input pink-textarea"></textarea>
             </div>
         </div>
     </div>
 
-    <!-- 设置弹窗 -->
-    <div class="settings-modal hidden" id="settingsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span>设置</span>
-                <span class="close-modal" id="closeSettings">×</span>
-            </div>
-            
-            <!-- 分类管理 -->
-            <div class="setting-section">
-                <h3>📂 分类管理</h3>
-                <div class="input-group">
-                    <input type="text" id="newCatInput" placeholder="新建分类">
-                    <button id="addCatBtn">新建</button>
-                </div>
-                <div class="cat-tags" id="catList">
-                    <!-- 分类标签 -->
-                </div>
-            </div>
-
-            <!-- 条目管理 -->
-            <div class="setting-section" style="flex:1; display:flex; flex-direction:column; margin-top:20px;">
-                <h3>📝 <span id="editCatName">默认</span> 的选项</h3>
-                <div class="input-group">
-                    <input type="text" id="newItemInput" placeholder="添加选项...">
-                    <button id="addItemBtn">添加</button>
-                </div>
-                <ul class="item-list" id="itemList">
-                    <!-- 列表 -->
-                </ul>
-            </div>
-        </div>
     </div>
-</div>
-</div>
 
 </div>
 

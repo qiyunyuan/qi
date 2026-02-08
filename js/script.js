@@ -1,6 +1,9 @@
 // 引入决策喵模块
 import initDecision from './slot.js';
 
+// 引入角色模块
+import initCharacter from './Character.js';
+
 // 启动时钟
 function updateClock() {
     const timeDisplay = document.getElementById('clock-display');
@@ -28,6 +31,9 @@ updateClock();
 // 初始化决策喵功能
 initDecision();
 
+// 初始化角色管理功能
+initCharacter();
+
 // 绑定APP图标点击事件
 const appDecision = document.getElementById('app-decision');
 if (appDecision) {
@@ -35,5 +41,17 @@ if (appDecision) {
         // 隐藏主页，显示决策页
         document.getElementById('page-home').classList.remove('active');
         document.getElementById('page-decision').classList.add('active');
+    });
+}
+
+// 绑定角色设置图标点击事件
+const btnCharacter = document.getElementById('btn-character');
+const pageHome = document.getElementById('page-home');
+const pageCharacter = document.getElementById('page-character');
+
+if (btnCharacter) {
+    btnCharacter.addEventListener('click', () => {
+        pageHome.classList.remove('active');
+        pageCharacter.classList.add('active');
     });
 }

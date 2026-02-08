@@ -1,0 +1,217 @@
+/* =================================
+   标签页样式
+   ================================= */
+.tab-header {
+    display: flex;
+    background-color: #fff0f5;
+    padding: 10px 15px 0;
+    gap: 10px;
+    border-bottom: 2px solid #ffb7d2;
+}
+
+.tab-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #ffe6f0;
+    color: #ff8fab;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.tab-item.active {
+    background-color: #ffb7d2;
+    color: white;
+    transform: translateY(2px); /* 稍微下沉一点，更有质感 */
+}
+
+/* =================================
+   列表内容样式
+   ================================= */
+.info-list {
+    display: none; /* 默认隐藏 */
+    padding: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+.info-list.active {
+    display: block; /* 激活时显示 */
+}
+
+.info-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(255, 183, 210, 0.3);
+    border: 1px solid #ffe6f0;
+    transition: transform 0.2s;
+}
+
+.info-card:active {
+    transform: scale(0.98);
+}
+
+.info-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #eee;
+    margin-right: 15px;
+    border: 2px solid #ffb7d2;
+}
+
+.char-avatar {
+    background-color: #ffcce0; /* 角色头像底色 */
+}
+
+.user-avatar {
+    background-color: #e0f7fa; /* 用户头像底色，稍微区分一下 */
+}
+
+.info-text h3 {
+    font-size: 1rem;
+    color: #d63384;
+    margin-bottom: 4px;
+}
+
+.info-text p {
+    font-size: 0.8rem;
+    color: #ff8fab;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================
+   编辑/新建页面样式
+   ================================= */
+.editor-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff0f5;
+    z-index: 100; /* 保证盖在最上面 */
+    display: none; /* 默认隐藏 */
+    flex-direction: column;
+    animation: slideIn 0.3s ease;
+}
+
+.Character-editor-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 头像上传部分 */
+.avatar-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar-preview {
+    width: 90px;  /* 稍微大一点点 */
+    height: 90px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 3px solid #ffe6f0; /* 浅粉色实线边框 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem; /* 加号大一点 */
+    color: #ffb7d2;    /* 加号颜色 */
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(255, 183, 210, 0.4); /* 柔和的粉色光晕 */
+    transition: all 0.3s ease;
+}
+
+.avatar-preview:active {
+    transform: scale(0.95);
+}
+
+.tip-text {
+    font-size: 0.8rem;
+    color: #ff8fab;
+    margin-top: 8px;
+}
+
+/* 表单样式 */
+.Character-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.Character-form-group label {
+    font-size: 0.9rem;
+    color: #d63384;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.pink-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ffe6f0;
+    border-radius: 15px;
+    background-color: white;
+    color: #d63384;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.pink-input:focus {
+    border-color: #ffb7d2;
+}
+
+.pink-input::placeholder {
+    color: #ffcce0;
+}
+
+.pink-textarea {
+    height: 120px;
+    resize: none;
+    font-family: inherit;
+}
+
+/* 动画 */
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* =================================
+   新增：删除按钮样式
+   ================================= */
+.Character-delete-btn {
+    margin-top: 30px;        /* 离上面远一点，防误触 */
+    padding: 12px;
+    background-color: white;
+    color: #ff6b6b;          /* 红色文字，警示一下 */
+    border: 2px solid #ff6b6b;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;             /* 宽宽的 */
+    display: none;           /* 默认藏起来，JS会控制它 */
+}
+
+.Character-delete-btn:active {
+    background-color: #ff6b6b; /* 按下去变红 */
+    color: white;
+    transform: scale(0.98);
+}
