@@ -1,0 +1,59 @@
+/* 系统UI样式 */
+/* 标题栏 */
+.sys-app-header {
+    height: 60px;
+    background-color: #ffb7d2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.sys-header-btn {
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sys-header-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* 内容背景 */
+.sys-app-content {
+    flex: 1;
+    background-color: #fff0f5;
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+    min-height: 0;
+}
+
+/* 全局通用 APP 视图状态 */
+/* 视图显示隐藏控制（配合单页应用切换） */
+.app-view {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0; /* 🌟 关键：防止被长列表撑破外层容器 */
+    height: 100%;
+    overflow: hidden;
+}
+
+.app-view.active {
+    display: flex;
+}
+
+/* 全局通用内容区内边距 */
+.sys-content-padding {
+    padding: 20px;
+    box-sizing: border-box;
+}

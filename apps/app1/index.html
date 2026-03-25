@@ -1,0 +1,170 @@
+<body>
+<!-- API 设置主界面 -->
+<div id="api-main-view" class="app-view active">
+    
+    <!-- 1. 标题栏 (复用 system-ui.css 的基础样式) -->
+    <div class="sys-app-header">
+        <div class="sys-header-btn" id="btn-back">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </div>
+        <div class="sys-header-title">API 设置</div>
+        <div class="sys-header-btn" id="btn-add-api">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </div>
+    </div>
+
+    <!-- 2. 内容区域 -->
+    <div class="sys-app-content sys-content-padding">
+        
+        <!-- 【功能配置】 大按键 -->
+        <div class="config-btn-card" id="btn-feature-config">
+            <div class="config-btn-left">
+                <div class="config-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </div>
+                <span class="config-text">功能处理配置</span>
+            </div>
+            <div class="config-btn-right">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+        </div>
+
+        <!-- 小标题 -->
+        <div class="section-title">已保存的 API</div>
+
+        <!-- 3. 已保存的 API 列表 -->
+        <div class="api-list">
+            
+        </div>
+    </div>
+</div>
+
+<!-- ================== API 编辑/添加视图 ================== -->
+<div id="api-edit-view" class="app-view">
+    
+    <!-- 1. 标题栏 -->
+    <div class="sys-app-header">
+        <div class="sys-header-btn" id="btn-edit-back">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </div>
+        <div class="sys-header-title" id="api-view-title">添加 / 编辑 API</div>
+        <div class="sys-header-btn" id="btn-edit-save">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+    </div>
+
+    <!-- 2. 内容区域 (增加了底部 padding 防止被导航栏遮挡) -->
+    <div class="sys-app-content sys-content-padding" style="padding-bottom: 80px;">
+        
+        <!-- ================= Tab 1: 配置界面 ================= -->
+        <div id="tab-config" class="edit-tab active">
+            <!-- 基础信息输入区 -->
+            <div class="edit-form-group">
+                <label>API 名称</label>
+                <input type="text" class="cute-input" placeholder="名称">
+            </div>
+            <div class="edit-form-group">
+                <label>接口地址 (URL)</label>
+                <input type="text" class="cute-input" placeholder="https://xxxx.com">
+            </div>
+            <div class="edit-form-group">
+                <label>密钥 (API Key)</label>
+                <input type="password" class="cute-input" placeholder="sk-xxxxxxxxxxxxxxxx">
+            </div>
+
+            <!-- 状态切换 -->
+            <div class="edit-form-row">
+                <div class="quota-toggle">
+                    <button class="quota-btn active">有额度</button>
+                    <button class="quota-btn">无额度</button>
+                </div>
+            </div>
+
+            <!-- 底部危险操作区 -->
+            <div class="delete-zone">
+                <button class="cute-btn-danger">删除此 API</button>
+            </div>
+        </div>
+
+        <!-- ================= Tab 2: 模型界面 ================= -->
+        <div id="tab-models" class="edit-tab">
+            
+            <div class="section-title" style="display: flex; justify-content: space-between; align-items: center; margin-right: 4px; margin-top: 10px;">
+                <span>已收藏模型</span>
+                <div>
+                    <button id="btn-clear-models" class="cute-btn-small-danger" style="margin-right: 8px;">清空</button>
+                    <button id="btn-pull-models" class="cute-btn-small">拉取模型</button>
+                </div>
+            </div>
+            
+            <!-- 极简版卡片：支持左滑删除 -->
+            <div class="model-list">
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 3. 底部操作栏 (Tab 切换) -->
+    <div class="edit-bottom-nav">
+        <div class="nav-item active" data-target="tab-config">
+            <svg viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <span>配置</span>
+        </div>
+        <div class="nav-item" data-target="tab-models">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            <span>模型</span>
+        </div>
+    </div>
+</div>
+
+<!-- ================== 模型编辑弹窗 (Modal) ================== -->
+<div id="model-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>编辑模型</h3>
+            <button class="close-btn" onclick="closeModelModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="edit-form-group">
+                <label>模型 ID (不可修改)</label>
+                <!-- 增加了 readonly 属性 -->
+                <input type="text" id="modal-model-id" class="cute-input" readonly>
+            </div>
+            <div class="edit-form-group">
+                <label>模型名称</label>
+                <input type="text" id="modal-model-name" class="cute-input">
+            </div>
+            <div class="edit-form-group">
+                <label>单次消耗额度</label>
+                <!-- 改成了数字输入框 -->
+                <input type="number" id="modal-model-cost" class="cute-input" placeholder="例如：1" min="0">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="cute-btn-small" style="width: 100%; padding: 12px; font-size: 1rem;" onclick="closeModelModal()">保存设置</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================== 拉取模型弹窗 (新增) ================== -->
+<div id="pull-model-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>拉取可用模型</h3>
+            <button class="close-btn" onclick="closePullModelModal()">×</button>
+        </div>
+        <div class="modal-body" id="pull-model-list-container">
+            <!-- 模型列表将通过 JS 动态插入到这里 -->
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: space-between;">
+            <div class="pull-model-actions">
+                <button id="btn-select-all" class="cute-btn-small-link">全选</button>
+                <button id="btn-deselect-all" class="cute-btn-small-link">取消全选</button>
+            </div>
+            <button id="btn-collect-selected" class="cute-btn-small" style="padding: 8px 16px;">收藏选中模型</button>
+        </div>
+    </div>
+</div>
+
+</body>

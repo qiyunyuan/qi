@@ -2,175 +2,96 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no"
-    >
-    <meta name="application-name" content="祁韵机">
-    <title>祁韵机</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="application-name" content="情侣机">
+    <title>情侣机</title>
 
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#fcebf3">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/system-ui.css">    
+    <link rel="stylesheet" href="css/desktop.css">
 
     <!-- 图标库 -->
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
+
 </head>
-
 <body>
-
-<div class="container">
-
-    <!-- 主页内容 -->
-    <div id="page-home" class="page active">
-        <!-- 个人资料区域 -->
-        <div class="profile-section">
-            <div class="avatar"></div>
-            <div class="nickname">OvO</div>
-            <div class="bio">我想要暖暖的幸福</div>
-        </div>
-
-        <!-- 时间卡片 (纯文字胶囊版) -->
-         <div class="time-card">
-            <div class="time-info">
-                <div class="time-text">☆*爱 是唯一通向你的次元的钥匙*☆</div>
-                <div class="time-value">
-                    <span class="date-display">01/01 星期三</span>
-                    <span id="clock-display">00:00</span>
-                </div>
+    <!-- 手机外壳容器 -->
+    <div id="phone-container">
+        <!-- 桌面主屏幕 -->
+        <div id="desktop">
+            
+            <!-- 顶部：个人信息区 -->
+            <div class="profile-section">
+                <div class="avatar"></div>
+                <h1 class="username">OvO</h1>
+                <p class="motto">我想要暖暖的幸福</p>
             </div>
-        </div>
 
-                <!-- 组件区域 -->
-        <div class="menu-section">
-            <!-- 左侧：对话组件 -->
-            <div class="dream-card">
-                <div class="dream-title">♰.𝐾𝑖𝑡𝑡𝑒𝑛.♰</div>
-                
-                <!-- 第一条：头像在左 -->
-                <div class="dream-item">
-                    <div class="mini-avatar"></div>
-                    <span class="dream-text">愿你被世界所爱</span>
-                </div>
-
-                <!-- 第二条：头像在右 -->
-                <div class="dream-item">
-                    <span class="dream-text">你就是我的全世界</span>
-                    <div class="mini-avatar"></div>
+            <!-- 小组件：时间和问候 -->
+            <div class="widget time-widget">
+                <p class="quote">☆*爱 是唯一通向你的次元的钥匙*☆</p>
+                <div class="datetime">
+                    <span class="date">01/01 星期一</span>
+                    <span class="time">00:00:00</span>
                 </div>
             </div>
 
-            <div class="right-apps">
-                <!-- 第一个图标 -->
-                <div class="app-group">
-                    <div class="app-icon"></div>
-                    <span class="app-name">APP1</span>
+            <!-- 中间部分：左侧小组件 + 右侧APP -->
+            <div class="middle-section">
+                <!-- 左侧：Kitten 小组件 -->
+                <div class="widget kitten-widget">
+                    <h2 class="kitten-title">♰.𝐾𝑖𝑡𝑡𝑒𝑛.♰</h2>
+                    <div class="kitten-item">
+                        <span class="dot"></span>
+                        <span class="text">愿你被世界所爱</span>
+                    </div>
+                    <div class="kitten-item">
+                        <span class="text">你就是我的全世界</span>
+                        <span class="dot"></span>
+                    </div>
                 </div>
-                
-                <!-- 第二个图标 -->
-                <div class="app-group">
-                    <div class="app-icon"></div>
-                    <span class="app-name">APP2</span>
+
+                <!-- 右侧：侧边APP -->
+                <div class="side-apps">
+                    <div class="app-icon" data-app="app1">
+                        <div class="icon-box"></div>
+                        <span class="app-name">APP1</span>
+                    </div>
+                    <div class="app-icon" data-app="app2">
+                        <div class="icon-box"></div>
+                        <span class="app-name">APP2</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部：固定停靠栏 (Dock) -->
+            <div class="dock">
+                <div class="app-icon" data-app="app3">
+                    <div class="icon-box"></div>
+                    <span class="app-name">APP3</span>
+                </div>
+                <div class="app-icon" data-app="app4">
+                    <div class="icon-box"></div>
+                    <span class="app-name">APP4</span>
+                </div>
+                <div class="app-icon" data-app="app5">
+                    <div class="icon-box"></div>
+                    <span class="app-name">APP5</span>
+                </div>
+                <div class="app-icon" data-app="app6">
+                    <div class="icon-box"></div>
+                    <span class="app-name">APP6</span>
                 </div>
             </div>
 
         </div>
 
-                <!-- 底部四个APP图标 -->
-        <div class="bottom-dock">
-            <!-- 1 -->
-            <div class="app-group">
-                <div class="app-icon"></div>
-                <span class="app-name">APP3</span>
-            </div>
-            <!-- 2 -->
-            <div class="app-group" id="btn-character">
-                <div class="app-icon"></div>
-                <span class="app-name">角色管理</span>
-            </div>
-            <!-- 3 -->
-            <div class="app-group">
-                <div class="app-icon"></div>
-                <span class="app-name">APP5</span>
-            </div>
-            <!-- 4 -->
-            <div class="app-group">
-                <div class="app-icon"></div>
-                <span class="app-name">APP6</span>
-            </div>
-        </div>
+                <!-- APP 容器（默认隐藏） -->
+        <div id="app-container" class="hidden"></div>
     </div>
-
-    <div id="page-character" class="page">
-            <!-- 1. 标题栏 -->
-    <div class="nav-header">
-        <div class="nav-btn" id="back-btn">❮</div>
-        <div class="nav-title">角色管理</div>
-        <div class="nav-btn" id="new-btn">＋</div>
-    </div>
-
-    <!-- 2. 分类标签 -->
-    <div class="tab-header">
-        <div class="tab-item active" data-target="char">角色 (Char)</div>
-        <div class="tab-item" data-target="user">用户 (User)</div>
-    </div>
-
-    <!-- 3. 内容区域 -->
-    <div class="page-content">
-        <!-- 角色列表 -->
-        <div id="char-list" class="info-list active">
-            <!-- 空空如也 -->
-        </div>
-
-        <!-- 用户列表 -->
-        <div id="user-list" class="info-list">
-            <!-- 空空如也 -->
-        </div>
-    </div>
-
-        <!-- 4. 新建/编辑 覆盖层 (默认隐藏) -->
-    <div id="editor-layer" class="editor-layer">
-        <!-- 编辑页标题栏 -->
-        <div class="nav-header">
-            <div class="nav-btn" id="editor-back">❮</div>
-            <div class="nav-title" id="editor-title">新建角色</div>
-            <div class="nav-btn" id="editor-save">✔</div>
-        </div>
-
-        <!-- 编辑页内容 -->
-        <div class="page-content Character-editor-content">
-            <!-- 头像上传区 -->
-            <div class="avatar-upload-container">
-                <div class="avatar-preview" id="editor-avatar">
-                    <span>＋</span>
-                </div>
-                <input type="file" id="avatar-input" accept="image/*" style="display: none;">
-                <p class="tip-text">点击更换头像</p>
-            </div>
-
-            <!-- 输入表单 -->
-            <div class="Character-form-group">
-                <label>名字</label>
-                <input type="text" id="editor-name" placeholder="取个名字吧" class="pink-input">
-            </div>
-
-            <div class="Character-form-group">
-                <label>ID</label>
-                <input type="text" id="editor-id" placeholder="唯一的ID哦" class="pink-input">
-            </div>
-
-            <div class="Character-form-group">
-                <label>描述</label>
-                <textarea id="editor-desc" placeholder="写点什么介绍一下..." class="pink-input pink-textarea"></textarea>
-            </div>
-        </div>
-    </div>
-
-    </div>
-
-</div>
-
-<script type="module" src="js/script.js"></script>
+<script type="module" src="./js/main.js"></script>
 </body>
 </html>

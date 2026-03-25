@@ -1,0 +1,179 @@
+/* css/desktop.css */
+
+#desktop {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 35px 25px 25px 25px; /* 把内边距加在这里，专属于桌面！ */
+    box-sizing: border-box; /* 确保内边距不会撑破 100% 高度 */
+}
+
+/* --- 顶部个人信息区 --- */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 45px;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #e0e0e0; /* 默认灰色占位，后期可放图片 */
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    margin-bottom: 12px;
+}
+
+.username {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4a3b3b;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+.motto {
+    font-size: 14px;
+    color: #424242;
+}
+
+/* --- 小组件通用样式 --- */
+.widget {
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 192, 203, 0.2);
+}
+
+/* --- 时间小组件 --- */
+.time-widget {
+    border-radius: 50px;
+    padding: 15px 20px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.quote {
+    font-size: 13px;
+    color: #424242;
+    margin-bottom: 8px;
+}
+
+.datetime {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.date {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a3b3b;
+    letter-spacing: 0.5px;
+}
+
+.time {
+    font-size: 22px;
+    font-weight: bold;
+    color: #4a3b3b;
+    font-family: monospace;
+
+}
+
+/* --- 中间区域 (左小组件 + 右APP) --- */
+.middle-section {
+    display: flex;
+    justify-content: space-between;
+    height: 170px;
+}
+
+/* 左侧：Kitten 小组件 */
+.kitten-widget {
+    border-radius: 20px;
+    padding: 15px;
+    width: 62%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.kitten-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: bold;
+    color: #424242;
+    margin-bottom: 5px;
+}
+
+.kitten-item {
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.kitten-widget .kitten-item:last-of-type {
+    justify-content: flex-end;
+}
+
+
+.dot {
+    width: 30px;
+    height: 30px;
+    background-color: #d8d8d8;
+    border-radius: 50%;
+}
+
+.kitten-item .text {
+    font-size: 11px;
+    color: #4a3b3b;
+}
+
+/* 右侧：侧边APP列表 */
+.side-apps {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- APP 图标通用样式 --- */
+.app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.app-icon:active {
+    transform: scale(0.95);
+}
+
+.icon-box {
+    width: 58px;
+    height: 58px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.app-name {
+    font-size: 11px;
+    font-weight: bold;
+    color: #424242;
+}
+
+/* --- 底部 Dock 栏 --- */
+.dock {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding: 0 5px;
+}

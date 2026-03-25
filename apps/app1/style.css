@@ -1,0 +1,641 @@
+/* ================== 功能配置渐变按钮 ================== */
+.config-btn-card {
+    background: linear-gradient(135deg, #ffb3c6 0%, #ff8da1 100%);
+    border-radius: 20px;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 6px 16px rgba(255, 141, 161, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.config-btn-card:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(255, 141, 161, 0.2);
+}
+
+.config-btn-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.config-icon {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.config-text {
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* ================== 小标题 ================== */
+.section-title {
+    color: #ff8da1;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 24px 0 12px 6px;
+    letter-spacing: 0.5px;
+}
+
+/* ================== API 卡片列表 ================== */
+.api-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.api-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(255, 183, 210, 0.15);
+    transition: box-shadow 0.2s;
+}
+
+/* 卡片左侧：名字与地址 */
+.api-info-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    min-width: 0; /* 防止超长地址撑破布局 */
+    padding-right: 10px;
+}
+
+.api-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 12px;
+}
+
+.api-url-box {
+    background-color: #f7f9fa;
+    padding: 6px 12px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: fit-content;
+}
+
+.api-url {
+    font-size: 0.75rem;
+    color: #a0a0a0;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* 控制超长地址显示省略号 */
+}
+
+/* 卡片右侧：状态与开关 */
+.api-action-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+/* 额度状态标签 (仿截图中的薄荷绿/天蓝) */
+.api-status-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.api-status-badge.has-quota {
+    background-color: #e0f6f8;
+    color: #4cb2b8;
+}
+
+/* 无额度时的样式 */
+.api-status-badge.no-quota {
+    background-color: #ffe5e5;
+    color: #ff6b6b;
+}
+
+/* ================== 可爱风滑动开关 ================== */
+.cute-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.cute-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.cute-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e4e4e4;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.cute-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.cute-switch input:checked + .slider {
+    background-color: #ffb7d2; /* 开启时变成系统的可爱粉色 */
+}
+
+.cute-switch input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* ================== 编辑界面专属样式 ================== */
+
+/* 1. 表单输入框组 */
+.edit-form-group {
+    margin-bottom: 18px;
+}
+
+.edit-form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: #ff8da1; /* 少女粉 */
+    margin-bottom: 8px;
+    font-weight: bold;
+    padding-left: 6px;
+}
+
+/* 萌系输入框 */
+.cute-input {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    border: 2px solid #ffe5e5;
+    border-radius: 16px;
+    padding: 14px 16px;
+    font-size: 1rem;
+    color: #444;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.cute-input:focus {
+    border-color: #ffb3c6;
+    box-shadow: 0 0 0 4px rgba(255, 179, 198, 0.2); /* 聚焦时的粉色光晕 */
+}
+
+/* 2. 额度和连通性测试所在行 */
+.edit-form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* 胖乎乎的有/无额度切换器 */
+.quota-toggle {
+    display: flex;
+    background-color: #f7f9fa;
+    border-radius: 14px;
+    padding: 4px;
+}
+
+.quota-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #a0a0a0;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.quota-btn.active {
+    background-color: white;
+    color: #ff8da1;
+    box-shadow: 0 2px 8px rgba(255, 141, 161, 0.15); /* 激活时浮起并带点粉色阴影 */
+}
+
+/* 可爱风幽灵按钮 (测试连通性) */
+.cute-btn-outline {
+    border: 2px solid #ffb3c6;
+    background-color: white;
+    color: #ff8da1;
+    padding: 8px 16px;
+    border-radius: 14px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cute-btn-outline:active {
+    background-color: #fff0f3;
+    transform: scale(0.95);
+}
+
+/* 渐变小按钮 (拉取模型) */
+.cute-btn-small {
+    border: none;
+    background: linear-gradient(135deg, #ffb3c6 0%, #ff8da1 100%);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(255, 141, 161, 0.3);
+    cursor: pointer;
+}
+
+.cute-btn-small:active {
+    transform: scale(0.92);
+}
+
+/* 危险操作小按钮 (清空模型) */
+.cute-btn-small-danger {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffebee; /* 危险操作的浅红色背景 */
+    color: #e53935; /* 危险操作的深红色文字 */
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cute-btn-small-danger:active {
+    background-color: #ffcdd2; /* 点击时的颜色 */
+}
+
+/* 3. 模型列表与迷你卡片 */
+.model-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ================== 覆盖极简版模型卡片 ================== */
+.model-card {
+    background-color: #fffcfd;
+    border: 2px solid #fff0f3;
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.model-card:active {
+    transform: scale(0.98);
+    background-color: #fff0f3;
+}
+.model-name {
+    font-weight: bold;
+    color: #444;
+    font-size: 1rem;
+}
+
+.model-info {
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+    gap: 4px; /* 名称和额度之间的小间距 */
+}
+
+.model-cost {
+    font-size: 0.75rem;
+    color: #999;
+    background-color: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 6px;
+    display: inline-block; /* 让背景色包裹文字 */
+    width: fit-content; /* 宽度自适应内容 */
+}
+
+/* ================== 模型编辑弹窗 (Modal) ================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal-content {
+    background: white;
+    width: 85%;
+    max-width: 320px;
+    border-radius: 24px;
+    padding: 24px;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* 可爱的Q弹动画 */
+    box-shadow: 0 10px 30px rgba(255, 141, 161, 0.25);
+}
+.modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.modal-header h3 {
+    margin: 0;
+    color: #ff8da1;
+    font-size: 1.15rem;
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #ccc;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+}
+.modal-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* 模型操作区 (标签 + Emoji 按钮) */
+.model-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 2px;
+    transition: transform 0.2s;
+}
+
+.icon-btn:active {
+    transform: scale(0.7);
+}
+
+/* 4. 底部危险操作区 (删除按钮) */
+.delete-zone {
+    margin-top: 40px;
+    padding-bottom: 40px; /* 给底部留足空间，防止被系统导航条遮挡 */
+}
+
+.cute-btn-danger {
+    width: 100%;
+    background-color: #fff;
+    border: 2px solid #ff7a8a;
+    color: #ff7a8a;
+    padding: 14px;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cute-btn-danger:active {
+    background-color: #fff0f2;
+    transform: scale(0.97);
+}
+
+/* ================== 标签页切换效果 ================== */
+.edit-tab {
+    display: none;
+    animation: fadeIn 0.3s ease; /* 切换时带点淡入动画 */
+}
+
+.edit-tab.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================== 底部操作栏 (Nav Bar) ================== */
+.edit-bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid #fff0f3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -4px 15px rgba(255, 183, 210, 0.15);
+    z-index: 10;
+    border-bottom-left-radius: 24px; /* 适配容器圆角 */
+    border-bottom-right-radius: 24px;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #c4c4c4;
+    cursor: pointer;
+    width: 50%;
+    height: 100%;
+    transition: all 0.2s;
+    gap: 4px;
+}
+
+.nav-item svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    transition: transform 0.2s;
+}
+
+.nav-item span {
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* 选中状态 */
+.nav-item.active {
+    color: #ff8da1;
+}
+
+.nav-item.active svg {
+    transform: translateY(-2px); /* 选中时图标微微上浮 */
+}
+
+.nav-item:active svg {
+    transform: scale(0.9);
+}
+
+/* ================== 只读输入框样式 ================== */
+.cute-input[readonly] {
+    background-color: #f7f9fa;
+    color: #a0a0a0;
+    border-color: #eee;
+    cursor: not-allowed;
+}
+.cute-input[readonly]:focus {
+    box-shadow: none; /* 禁用发光效果 */
+}
+
+/* ================== 左滑删除交互样式 ================== */
+.swipe-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    background-color: #fffcfd; /* 匹配卡片底色 */
+}
+
+/* 底部的操作按钮容器 */
+.swipe-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    z-index: 1;
+}
+
+.action-btn {
+    border: none;
+    width: 65px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.action-btn:active {
+    opacity: 0.8;
+}
+
+.cancel-btn {
+    background-color: #c4c4c4; /* 灰色返回 */
+}
+
+.delete-btn {
+    background-color: #ff7a8a; /* 红色删除 */
+}
+
+/* 顶部的实体卡片 */
+.model-card.swipeable {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0; /* 覆盖之前的 margin */
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 丝滑回弹动画 */
+    touch-action: pan-y; /* 允许页面上下滚动，但接管左右滑动 */
+}
+
+/* 触发左滑后的状态 (向左偏移 130px 露出两个按钮) */
+.model-card.swipeable.swiped {
+    transform: translateX(-130px);
+}
+
+/* ================== 拉取模型弹窗样式 (新增) ================== */
+
+/* 模型列表容器 */
+.pull-model-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 50vh; /* 限制最大高度，超出则滚动 */
+    overflow-y: auto;
+}
+
+/* 列表中的每一项 */
+.pull-model-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background-color: #f7f9fa;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pull-model-item:hover {
+    background-color: #f0f2f5;
+}
+
+/* 自定义复选框 */
+.pull-model-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #ff8da1; /* 改变选中颜色 */
+}
+
+/* 模型名称 */
+.pull-model-item .model-name {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* 弹窗底部操作区的 "全选/取消全选" 链接式按钮 */
+.pull-model-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.cute-btn-small-link {
+    background: none;
+    border: none;
+    color: #ff8da1;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
