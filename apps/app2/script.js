@@ -374,6 +374,12 @@ function renderEditForm() {
 }
 
 function bindMainEvents() {
+        addManagedEventListener(document.getElementById('btn-main-back'), 'click', () => {
+        if (window.System && typeof window.System.closeApp === 'function') {
+            window.System.closeApp();
+        }
+    });
+
     addManagedEventListener(document.getElementById('btn-main-add'), 'click', openCreate);
     addManagedEventListener(document.getElementById('category-tabs'), 'click', (e) => {
         const tab = e.target.closest('.category-tab');
