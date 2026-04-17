@@ -1,0 +1,100 @@
+<body>
+<div id="role-main-view" class="app-view active">
+    <div class="sys-app-header">
+        <div class="sys-header-btn" id="btn-main-back" aria-label="返回">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </div>
+        <div class="sys-header-title">角色管理</div>
+        <div class="sys-header-btn" id="btn-main-add" aria-label="新建">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </div>
+    </div>
+
+    <div class="sys-app-content sys-content-padding">
+        <div class="category-tabs" id="category-tabs">
+            <button class="category-tab active" data-category="User">User</button>
+            <button class="category-tab" data-category="Char">Char</button>
+            <button class="category-tab" data-category="Npc">Npc</button>
+        </div>
+
+        <div class="section-title">角色列表</div>
+        <div id="role-list" class="role-list"></div>
+    </div>
+</div>
+
+<div id="role-edit-view" class="app-view">
+    <div class="sys-app-header">
+        <div class="sys-header-btn" id="btn-edit-back" aria-label="返回">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </div>
+        <div class="sys-header-title" id="edit-view-title">新建角色</div>
+        <div class="sys-header-btn" id="btn-edit-save" aria-label="保存">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+        </div>
+    </div>
+
+    <div class="sys-app-content sys-content-padding" style="padding-bottom: 90px;">
+        <div class="edit-form-group">
+            <label for="field-category">分类</label>
+            <select id="field-category" class="cute-input">
+                <option value="User">User</option>
+                <option value="Char">Char</option>
+                <option value="Npc">Npc</option>
+            </select>
+        </div>
+
+<!-- 头像部分修改 -->
+<div class="edit-form-group" style="text-align: center;">
+    <label style="text-align: left;">头像</label>
+    <div id="avatar-preview" style="width: 80px; height: 80px; border-radius: 50%; background: #ffe8f0; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid #ffb3c6;">
+        <span class="avatar-placeholder" style="color: #ff8da1; font-size: 0.8rem;">预览</span>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 10px;">
+        <button type="button" id="btn-url-upload" class="cute-btn-small">URL上传</button>
+        <label class="cute-btn-small" style="cursor: pointer; margin: 0; box-sizing: border-box;">
+            本地上传
+            <input type="file" id="field-avatar-file" accept="image/*" hidden>
+        </label>
+    </div>
+    <!-- 隐藏保存头像值的 input -->
+    <input id="field-avatar" type="hidden">
+</div>
+
+        <div class="edit-form-group">
+            <label for="field-name">名字（AI识别名，不建议随意改）</label>
+            <input id="field-name" class="cute-input" type="text" placeholder="例如：小莓">
+        </div>
+
+        <div class="edit-form-group">
+            <label for="field-alias">备注名（显示名）</label>
+            <input id="field-alias" class="cute-input" type="text" placeholder="例如：老婆大人">
+        </div>
+
+        <div class="edit-form-group">
+            <label for="field-persona">人设内容</label>
+            <textarea id="field-persona" class="cute-input cute-textarea" placeholder="写下角色设定、说话风格、背景故事..."></textarea>
+        </div>
+
+<div id="npc-relations-panel" class="npc-panel">
+    <div class="npc-panel-header">
+        <span id="npc-panel-title">关联角色</span>
+        <button id="btn-add-relation" class="cute-btn-small" type="button" style="display: none;">新增 NPC</button>
+    </div>
+    <div id="relations-list" class="relations-list"></div>
+</div>
+
+        <div class="delete-zone">
+            <button id="btn-delete-role" class="cute-btn-danger" type="button">删除角色</button>
+        </div>
+    </div>
+</div>
+</body>

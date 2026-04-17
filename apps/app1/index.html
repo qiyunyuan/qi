@@ -167,4 +167,31 @@
     </div>
 </div>
 
+<!-- ================== 添加 API 弹窗 (新增) ================== -->
+<div id="add-api-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>添加 API</h3>
+            <button id="btn-close-add-modal" class="close-btn">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="edit-form-group">
+                <label>API 名称</label>
+                <input type="text" id="add-api-name" class="cute-input" placeholder="为你的 API 起个名字">
+            </div>
+            <div class="edit-form-group">
+                <label>接口地址 (URL)</label>
+                <input type="text" id="add-api-url" class="cute-input" placeholder="例如: https://api.openai.com">
+            </div>
+            <div class="edit-form-group">
+                <label>密钥 (API Key)</label>
+                <input type="password" id="add-api-key" class="cute-input" placeholder="sk-xxxxxxxxxxxxxxxx">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="btn-save-new-api" class="cute-btn-small" style="width: 100%; padding: 12px; font-size: 1rem;">保存 API</button>
+        </div>
+    </div>
+</div>
+
 </body>

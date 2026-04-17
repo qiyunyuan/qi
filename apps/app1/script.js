@@ -2,35 +2,16 @@
 // API 设置 APP - UI 交互逻辑 (V3 - 数据驱动版)
 // =================================================
 
+// 导入系统级 Storage 工具
+import { Storage } from '../../js/storage.js';
+
 // ------------------------------------------
 // 1. 全局状态管理 (State)
 // ------------------------------------------
 // 使用一个对象来存储应用的所有数据状态
 // editingApiId: null 表示添加新API, 具体值表示正在编辑的API的ID
 let appState = {
-    apis: [
-        {
-            id: 'api-1',
-            name: '土豆',
-            url: 'https://www.tudou.chat',
-            key: 'sk-xxxxxxxxxxxx-tudou',
-            hasQuota: true,
-            enabled: true,
-            models: [
-                { id: 'gpt-4o-mini', name: 'gpt-4o-mini', cost: 1 },
-                { id: 'claude-3-haiku', name: 'claude-3-haiku', cost: 0 }
-            ]
-        },
-        {
-            id: 'api-2',
-            name: '官方 OpenAI',
-            url: 'https://api.openai.com',
-            key: 'sk-xxxxxxxxxxxx-openai',
-            hasQuota: false,
-            enabled: false,
-            models: []
-        }
-    ],
+    apis: [], // 已清空虚拟数据
     editingApiId: null, // 当前正在编辑的API ID
     editingModelId: null, // 当前正在编辑的模型的ID
 };
@@ -43,6 +24,18 @@ function addManagedEventListener(element, type, listener, options) {
     if (!element) return;
     element.addEventListener(type, listener, options);
     eventListeners.push({ element, type, listener, options });
+}
+
+// ------------------------------------------
+// 1.1. 数据持久化 (Persistence)
+// ------------------------------------------
+
+/**
+ * 将当前的 API 列表保存到 LocalStorage
+ */
+function saveApisToStorage() {
+    Storage.save('api-configs', appState.apis);
+    console.log('[Storage] API 配置已保存。');
 }
 
 // ------------------------------------------
@@ -140,10 +133,11 @@ function renderPullModelList(container, availableModels) {
     let listHtml = '<div class="pull-model-list">';
     availableModels.forEach(model => {
         const isCollected = existingModelIds.includes(model.id);
+        const modelName = model.name || model.id; // 兼容没有 name 字段的模型
         listHtml += `
             <label class="pull-model-item" for="model-${model.id}">
-                <input type="checkbox" id="model-${model.id}" value="${model.id}" ${isCollected ? 'checked disabled' : ''}>
-                <span class="model-name">${model.name} (${model.id})</span>
+                <input type="checkbox" id="model-${model.id}" value="${model.id}" data-name="${modelName}" ${isCollected ? 'checked disabled' : ''}>
+                <span class="model-name">${model.id}</span>
             </label>
         `;
     });
@@ -160,6 +154,10 @@ function renderPullModelList(container, availableModels) {
  */
 export function init() {
     console.log('[API-Manager] App Initializing...');
+
+    // >>> 新增：从 Storage 加载数据
+    // 如果 Storage 中有数据，则使用它，否则使用空数组
+    appState.apis = Storage.get('api-configs', []);
 
     // --- 获取所有 DOM 元素 ---
     const mainView = document.getElementById('api-main-view');
@@ -203,6 +201,14 @@ export function init() {
     const btnDeselectAll = document.getElementById('btn-deselect-all');
     const btnCollectSelected = document.getElementById('btn-collect-selected');
 
+    // 【新增】获取“添加API弹窗”的元素
+    const addApiModal = document.getElementById('add-api-modal');
+    const btnCloseAddModal = document.getElementById('btn-close-add-modal');
+    const btnSaveNewApi = document.getElementById('btn-save-new-api');
+    const addApiNameInput = document.getElementById('add-api-name');
+    const addApiUrlInput = document.getElementById('add-api-url');
+    const addApiKeyInput = document.getElementById('add-api-key');
+
     // --- 视图切换函数 ---
     const showView = (viewToShow) => {
         mainView.classList.remove('active');
@@ -218,6 +224,36 @@ export function init() {
     };
 
     // --- 事件处理函数 ---
+
+    // 【新增】专门用于处理“添加新API”的函数
+    const handleAddNewApi = () => {
+        const name = addApiNameInput.value.trim();
+        const url = addApiUrlInput.value.trim();
+        const key = addApiKeyInput.value.trim();
+
+        if (!name || !url || !key) {
+            alert('API 名称、地址和密钥不能为空！');
+            return;
+        }
+
+        const newApi = {
+            id: `api-${Date.now()}`,
+            name,
+            url,
+            key,
+            hasQuota: true, // 默认有额度
+            enabled: true,
+            models: [],
+        };
+
+        appState.apis.push(newApi);
+        saveApisToStorage();
+        renderApiList(apiListContainer);
+        
+        // 关闭弹窗
+        addApiModal.classList.remove('active');
+        alert('API 添加成功！');
+    };
 
     // 保存 API
     const handleSaveApi = () => {
@@ -239,20 +275,13 @@ export function init() {
                 api.key = key;
                 api.hasQuota = hasQuota;
             }
-        } else { // 添加模式
-            const newApi = {
-                id: `api-${Date.now()}`,
-                name,
-                url,
-                key,
-                hasQuota,
-                enabled: true,
-                models: [],
-            };
-            appState.apis.push(newApi);
+         } else {
+            // 这个分支理论上不再会进入，可以删除或保留以防万一
+            console.error("handleSaveApi called without editingApiId!");
+            return;
         }
         
-        console.log('API 已保存:', appState.apis);
+        saveApisToStorage(); // >>> 新增：保存到 Storage
         alert('API 已保存！');
         renderApiList(apiListContainer);
         showView(mainView);
@@ -264,6 +293,7 @@ export function init() {
         if (confirm(`确定要删除 API "${editForm.name.value}" 吗？`)) {
             appState.apis = appState.apis.filter(a => a.id !== appState.editingApiId);
             console.log('API 已删除:', appState.apis);
+            saveApisToStorage(); // >>> 新增：保存到 Storage
             alert('API 已删除！');
             renderApiList(apiListContainer);
             showView(mainView);
@@ -275,6 +305,7 @@ export function init() {
         const api = appState.apis.find(a => a.id === appState.editingApiId);
         if (api) {
             api.models = api.models.filter(m => m.id !== modelId);
+            saveApisToStorage(); // >>> 新增：保存到 Storage
             renderModelList(modelListContainer);
         }
     };
@@ -291,18 +322,14 @@ export function init() {
         if (!api) return;
 
         selectedCheckboxes.forEach(checkbox => {
-            // 这里我们假设可以从模拟数据中找到模型的完整信息
-            // 在真实场景中，你可能需要从一个更完整的数据源查找
-            const mockModels = [ { id: 'gpt-4o', name: 'GPT-4 Omni' }, { id: 'claude-3-opus', name: 'Claude 3 Opus' }, { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro' }];
-            const modelInfo = mockModels.find(m => m.id === checkbox.value) || { id: checkbox.value, name: checkbox.value };
-            
             api.models.push({
-                id: modelInfo.id,
-                name: modelInfo.name,
+                id: checkbox.value,
+                name: checkbox.dataset.name || checkbox.value, // 使用渲染时绑定的真实名称
                 cost: 0 // 默认消耗为0
             });
         });
 
+        saveApisToStorage(); // >>> 新增：保存到 Storage
         alert(`成功收藏 ${selectedCheckboxes.length} 个新模型！`);
         renderModelList(modelListContainer);
         pullModelModal.classList.remove('active');
@@ -319,19 +346,19 @@ export function init() {
 
     // 添加 API
     addManagedEventListener(btnAddApi, 'click', () => {
-        appState.editingApiId = null;
-        apiViewTitle.textContent = '添加 API';
-        // 清空表单
-        editForm.name.value = '';
-        editForm.url.value = '';
-        editForm.key.value = '';
-        editForm.quotaBtns[0].classList.add('active');
-        editForm.quotaBtns[1].classList.remove('active');
-        btnDeleteApi.style.display = 'none'; // 添加时隐藏删除按钮
-        modelListContainer.innerHTML = '<p class="empty-list-placeholder">请先保存 API 后再管理模型</p>';
-        resetEditTabs();
-        showView(editView);
+        // 清空输入框
+         addApiNameInput.value = '';
+        addApiUrlInput.value = '';
+        addApiKeyInput.value = '';
+        // 打开“添加API”弹窗
+        addApiModal.classList.add('active');
     });
+
+     // 【新增】为“添加API弹窗”绑定关闭和保存事件
+    addManagedEventListener(btnCloseAddModal, 'click', () => {
+        addApiModal.classList.remove('active');
+    });
+    addManagedEventListener(btnSaveNewApi, 'click', handleAddNewApi);
 
     // 从编辑页返回主页
     addManagedEventListener(btnEditBack, 'click', () => {
@@ -358,14 +385,14 @@ export function init() {
             const checkbox = e.target.closest('.cute-switch').querySelector('input');
             api.enabled = checkbox.checked;
             console.log(`API "${api.name}" 状态更新为: ${api.enabled ? '启用' : '禁用'}`);
-            // 注意：这里我们不阻止事件冒泡，所以点击开关也会打开编辑页
-            // 如果不希望这样，可以加上 e.stopPropagation(); return;
+            saveApisToStorage(); // >>> 新增：保存到 Storage
             return; 
         }
 
         // 点击卡片其他区域，进入编辑模式
         appState.editingApiId = apiId;
         apiViewTitle.textContent = '编辑 API';
+        btnDeleteApi.style.display = 'block'; 
         
         // 填充表单
         editForm.name.value = api.name;
@@ -504,6 +531,7 @@ export function init() {
         if (model) {
             model.name = modalModelName.value.trim();
             model.cost = Number(modalModelCost.value) || 0;
+            saveApisToStorage(); // >>> 新增：保存到 Storage
             renderModelList(modelListContainer);
         }
         modelModal.classList.remove('active');
@@ -524,27 +552,62 @@ export function init() {
         
         if (confirm('确定要删除所有已收藏的模型吗？此操作不可撤销。')) {
             api.models = []; // 清空数据
+            saveApisToStorage(); // >>> 新增：保存到 Storage
             renderModelList(modelListContainer); // 重新渲染列表
         }
     });
 
-    // 拉取模型弹窗 - 打开
-    addManagedEventListener(btnPullModels, 'click', () => {
+    // 拉取模型弹窗 - 打开并获取真实数据
+    addManagedEventListener(btnPullModels, 'click', async () => {
         if (!appState.editingApiId) return;
-        pullModelListContainer.innerHTML = '<p class="loading-text">正在拉取可用模型...</p>';
-        pullModelModal.classList.add('active');
         
-        // 模拟网络请求
-        setTimeout(() => {
-            const mockModels = [
-                { id: 'gpt-4o', name: 'GPT-4 Omni' },
-                { id: 'claude-3-opus', name: 'Claude 3 Opus' },
-                { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro' },
-                { id: 'gpt-4o-mini', name: 'GPT-4o Mini' }, // 模拟一个已存在的
-                { id: 'llama3-70b', name: 'Llama3 70B' },
-            ];
-            renderPullModelList(pullModelListContainer, mockModels);
-        }, 1000);
+        pullModelListContainer.innerHTML = '<div class="loading-spinner" style="text-align:center; padding: 20px;">正在拉取可用模型...</div>';
+        pullModelModal.classList.add('active');
+
+        try {
+            // 1. 获取当前编辑视图中的输入框元素
+            const apiUrlInput = document.querySelector('#api-edit-view input[placeholder="https://xxxx.com"]');
+            const apiKeyInput = document.querySelector('#api-edit-view input[placeholder="sk-xxxxxxxxxxxxxxxx"]');
+            
+            const apiUrl = apiUrlInput.value.trim();
+            const apiKey = apiKeyInput.value.trim();
+
+            // 2. 校验输入
+            if (!apiUrl || !apiKey) {
+                throw new Error("请先填写完整的 API 地址和密钥");
+            }
+            
+            // 3. 使用输入框中的值发起网络请求
+            const response = await fetch(`${apiUrl}/v1/models`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                // 尝试解析API返回的错误信息
+                let errorMsg = `网络请求失败: ${response.status}`;
+                try {
+                    const errorData = await response.json();
+                    errorMsg += `, ${errorData.error?.message || response.statusText}`;
+                } catch (e) {
+                    errorMsg += `, ${response.statusText}`;
+                }
+                throw new Error(errorMsg);
+            }
+
+            const result = await response.json();
+            const models = result.data || []; 
+            
+            // 4. 使用获取到的真实模型数据渲染列表
+            renderPullModelList(pullModelListContainer, models);
+
+        } catch (error) {
+            console.error('拉取模型失败:', error);
+            pullModelListContainer.innerHTML = `<p class="error-message" style="color: #ff4d4f; text-align: center; padding: 20px;">加载失败：${error.message}</p>`;
+        }
     });
 
     // 拉取模型弹窗 - 关闭

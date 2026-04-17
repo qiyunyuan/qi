@@ -177,3 +177,14 @@
     margin-top: auto;
     padding: 0 5px;
 }
+
+/* --- APP 容器动画效果 (解决 FOUC 闪烁) --- */
+#app-container {
+    opacity: 0; /* 默认全透明 */
+    transition: opacity 0.3s ease; /* 添加 0.3 秒的淡入动画 */
+}
+
+/* 当加上 .show 类名时显示 */
+#app-container.show {
+    opacity: 1;
+}
